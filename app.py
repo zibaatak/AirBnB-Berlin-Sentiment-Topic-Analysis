@@ -7,6 +7,7 @@ from IPython.display import display, HTML
 from sklearn.preprocessing import MinMaxScaler
 import re
 import spacy
+import subprocess
 
 try:
     import spacy
