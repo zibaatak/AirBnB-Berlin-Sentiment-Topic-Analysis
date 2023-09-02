@@ -3,20 +3,9 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from IPython.display import display, HTML
 from sklearn.preprocessing import MinMaxScaler
 import re
-import spacy
-import subprocess
 
-try:
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
-except ImportError:
-    import subprocess
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    import spacy
-    nlp = spacy.load("en_core_web_sm")
 
 # Load the preprocessed DataFrame
 @st.cache_data
