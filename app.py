@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[20]:
-
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -14,8 +8,14 @@ from sklearn.preprocessing import MinMaxScaler
 import re
 import spacy
 
-# Load spaCy for NER tagging
-nlp = spacy.load("en_core_web_sm")
+try:
+    import spacy
+    nlp = spacy.load("en_core_web_sm")
+except ImportError:
+    import subprocess
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    import spacy
+    nlp = spacy.load("en_core_web_sm")
 
 # Load the preprocessed DataFrame
 @st.cache_data
@@ -155,8 +155,3 @@ query = st.text_input("Enter your query:", "cozy apartment in Berlin")
 if st.button("Recommend"):
     top_recommendations = recommend_listings(query, top_n=5)
     display_recommendations(top_recommendations)
-
-
-
-
-
