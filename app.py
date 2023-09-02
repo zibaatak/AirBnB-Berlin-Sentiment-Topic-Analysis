@@ -5,19 +5,33 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
+# Download NLTK data (if not already downloaded)
+nltk.download('punkt')
+nltk.download('stopwords')
 
 # Load the preprocessed DataFrame
-@st.cache_data
+@st.cache
 def load_data():
     return pd.read_csv("final_data.zip")
+
 df = load_data()
 
 # Step 1: Textual Data Preprocessing
 def clean_text(text):
-    text = text.replace("<br/>", "")
+    # Remove HTML tags and non-alphanumeric characters
+    text = re.sub(r'<.*?>', '', text)
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
-    return text.lower()
+    # Convert to lowercase
+    text = text.lower()
+    # Tokenize and remove stopwords
+    stop_words = set(stopwords.words('english'))
+    words = word_tokenize(text)
+    words = [word for word in words if word not in stop_words]
+    return ' '.join(words)
 
 df['name'] = df['name'].apply(clean_text)
 df['property_type'] = df['property_type'].apply(clean_text)
