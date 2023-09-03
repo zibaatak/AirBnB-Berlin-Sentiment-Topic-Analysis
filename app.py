@@ -14,7 +14,6 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # Load the preprocessed DataFrame
-@st.cache_data
 def load_data():
     return pd.read_csv("preprocessed_data.zip")
 
