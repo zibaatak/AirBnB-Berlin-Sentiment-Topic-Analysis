@@ -8,9 +8,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-# Download NLTK data (if not already downloaded)
-nltk.download('punkt')
-nltk.download('stopwords')
+
 
 # Load the preprocessed DataFrame
 def load_data():
@@ -73,6 +71,22 @@ def display_recommendations(recommended_listings):
 
     # Display the HTML output
     st.markdown(html_output, unsafe_allow_html=True)
+
+# Function to filter recommendations based on user input
+def filter_recommendations(df, bedrooms, beds, min_rating, neighborhood_group, neighborhood):
+    filtered_df = df[(df['bedrooms'] >= bedrooms) &
+                     (df['beds'] >= beds) &
+                     (df['review_scores_rating'] >= min_rating) &
+                     (df['neighbourhood_group'] == neighborhood_group) &
+                     (df['neighbourhood'] == neighborhood)]
+    return filtered_df
+
+# Streamlit App
+st.title("AirBnB Berlin Recommendation System")
+
+# Add an input text box for the user to enter their query
+query = st.text_input("Search:", " ")
+
 # Create Streamlit widgets for filtering
 st.sidebar.header("Filter Options")
 
@@ -94,15 +108,6 @@ neighborhood_filter = st.sidebar.selectbox("Neighborhood", df['neighbourhood'].u
 # Button to trigger recommendations update
 update_button = st.sidebar.button("Update Recommendations")
 
-# Function to filter recommendations based on user input
-def filter_recommendations(df, bedrooms, beds, min_rating, neighborhood_group, neighborhood):
-    filtered_df = df[(df['bedrooms'] >= bedrooms) &
-                     (df['beds'] >= beds) &
-                     (df['review_scores_rating'] >= min_rating) &
-                     (df['neighbourhood_group'] == neighborhood_group) &
-                     (df['neighbourhood'] == neighborhood)]
-    return filtered_df
-
 if update_button:
     # Filter recommendations based on user input
     filtered_recommendations = filter_recommendations(df, bedrooms_filter, beds_filter, min_review_score, neighborhood_group_filter, neighborhood_filter)
@@ -110,11 +115,6 @@ if update_button:
     # Display the filtered recommendations
     display_recommendations(filtered_recommendations)
 
-# Streamlit App
-st.title("Listing Recommendation System")
-
-# Add an input text box for the user to enter their query
-query = st.text_input("Enter your query:", "cozy apartment in Berlin")
 
 # Define a button to trigger the recommendation
 if st.button("Recommend"):
