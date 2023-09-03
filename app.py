@@ -8,12 +8,13 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-
+# Download NLTK data (if not already downloaded)
+nltk.download('punkt')
+nltk.download('stopwords')
 
 # Load the preprocessed DataFrame
 def load_data():
     return pd.read_csv("preprocessed_data.zip")
-
 df = load_data()
 
 # Step 1: TF-IDF Vectorization
