@@ -5,8 +5,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 from IPython.display import Image, display, HTML
+import csv
 
 # Load the preprocessed DataFrame
+@st.cache_data
 def load_data():
     return pd.read_csv("preprocessed_data.zip")
 df = load_data()
