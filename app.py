@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.preprocessing import MinMaxScaler
 from IPython.display import Image, display, HTML
 import csv
 
@@ -16,11 +15,8 @@ df = load_data()
 # Step 1: TF-IDF Vectorization
 tfidf_vectorizer = TfidfVectorizer()
 textual_embeddings = tfidf_vectorizer.fit_transform(df['combined_textual_features'])
+numerical_columns = ['review_scores_rating', 'review_scores_accuracy', 'review_scores_cleanliness', 'review_scores_checkin', 'review_scores_communication', 'review_scores_location', 'review_scores_value', 'beds']
 
-# Step 2: Feature Scaling for Numerical Columns
-scaler = MinMaxScaler()
-numerical_columns = ['number_of_reviews', 'review_scores_rating', 'review_scores_accuracy', 'review_scores_cleanliness', 'review_scores_checkin', 'review_scores_communication', 'review_scores_location', 'review_scores_value', 'beds']  # Add your numerical columns here
-scaled_numerical_features = scaler.fit_transform(df[numerical_columns])
 
 # Combine the scaled numerical features with textual embeddings
 combined_features = np.hstack((textual_embeddings.toarray(), scaled_numerical_features))
