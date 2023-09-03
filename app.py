@@ -19,7 +19,7 @@ numerical_columns = ['review_scores_rating', 'review_scores_accuracy', 'review_s
 
 
 # Combine the scaled numerical features with textual embeddings
-combined_features = np.hstack((textual_embeddings.toarray(), scaled_numerical_features))
+combined_features = np.hstack((textual_embeddings.toarray(), numerical_columns))
 
 # Step 3: Cosine Similarity
 cosine_sim = cosine_similarity(combined_features)
