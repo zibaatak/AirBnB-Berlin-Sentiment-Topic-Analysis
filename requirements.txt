@@ -1,9 +1,10 @@
 streamlit
+scikit-learn
+IPython
 pandas
 numpy
 nltk
-scikit-learn
-IPython
+
 
 
 
