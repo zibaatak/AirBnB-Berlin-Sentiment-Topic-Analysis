@@ -1,22 +1,21 @@
-# AirBnB-Sentiment Analysis and Topic Modeling
+# **AirBnB-Sentiment Analysis and Topic Modeling**
 
-## Table of Contents
+## **Table of Contents**
 - [Overview](#overview)
 - [Data](#data)
 - [Results](#results)
-- [Exploratory Data Analysis](#ExploratoryDataAnalysis)
-- [Summary](#summary)
+- [Conclusion](#conclusion)
 - [Acknowledgments](#acknowledgments)
 
-## Overview
+## **Overview**
 
 
-## Data
+## **Data**
 The analysis begins with the examination of two primary datasets: Reviews and Neighbourhoods GeoJSON. The Reviews dataset contains 315,479 entries, each representing a guest review. This dataset includes essential information such as listing_id, date, reviewer_id, reviewer_name, comments, and the detected_language of the review.
 
 The Neighbourhoods GeoJSON dataset provides information about Berlin's neighborhoods, including geographical boundaries. It contains 140 entries and features like neighborhood, neighbourhood_group, and geometry.
 
-## Results
+## **Results**
 **Data Preprocessing**
 - Handling Missing Values:
 The Reviews dataset exhibits no missing values across its columns, indicating that the dataset is complete and ready for analysis.
@@ -58,7 +57,13 @@ The sentiment analysis results revealed the following distribution of sentiment 
 In the link below you can find a sentiment-based map of the listings.
 https://public.tableau.com/views/AirBnbBerlinSentimentMap/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link
 
+#**Conclusion**
+The analysis of Airbnb reviews in Berlin using topic modeling and sentiment analysis has provided valuable insights into guest experiences and preferences. Property owners and hosts can leverage these findings to enhance their listings and cater to guest needs effectively. The predominance of positive sentiments also underscores the quality of accommodations in Berlin.
 
+The combination of topic modeling and sentiment analysis equips Airbnb hosts and property managers with the tools to gain a deeper understanding of guest feedback, ultimately contributing to improved guest satisfaction and positive online reputations.
 
+#**Acknowledgments**
+
+The data used in this project can be found here: http://insideairbnb.com/get-the-data
 
 
