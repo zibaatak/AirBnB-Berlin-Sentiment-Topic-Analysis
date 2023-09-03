@@ -16,52 +16,15 @@ nltk.download('stopwords')
 # Load the preprocessed DataFrame
 @st.cache
 def load_data():
-    return pd.read_csv("final_data.zip")
+    return pd.read_csv("preprocessed_data.zip")
 
 df = load_data()
 
-# Step 1: Textual Data Preprocessing
-def clean_text(text):
-    # Remove HTML tags and non-alphanumeric characters
-    text = re.sub(r'<.*?>', '', text)
-    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
-    # Convert to lowercase
-    text = text.lower()
-    # Tokenize and remove stopwords
-    stop_words = set(stopwords.words('english'))
-    words = word_tokenize(text)
-    words = [word for word in words if word not in stop_words]
-    return ' '.join(words)
-
-df['name'] = df['name'].apply(clean_text)
-df['property_type'] = df['property_type'].apply(clean_text)
-df['description'] = df['description'].apply(clean_text)
-
-# Step 2: NER Extraction
-def extract_ner(text):
-    doc = nlp(text)
-    ner_tags = [ent.label_ for ent in doc.ents]
-    return ' '.join(ner_tags)
-
-df['name_ner'] = df['name'].apply(extract_ner)
-df['property_type_ner'] = df['property_type'].apply(extract_ner)
-df['description_ner'] = df['description'].apply(extract_ner)
-
-# Step 3: Preprocess Amenities
-def preprocess_amenities(amenities):
-    # Convert the list of amenities to a space-separated string
-    return ' '.join(amenities)
-
-df['amenities'] = df['amenities'].apply(preprocess_amenities)
-
-# Step 4: Combine Features
-df['combined_textual_features'] = df['name'] + ' ' + df['property_type'] + ' ' + df['description'] + ' ' + df['name_ner'] + ' ' + df['property_type_ner'] + ' ' + df['description_ner'] + ' ' + df['amenities'] + ' ' +  df['neighbourhood'] + ' ' + df['neighbourhood_group']
-
-# Step 5: TF-IDF Vectorization
+# Step 1: TF-IDF Vectorization
 tfidf_vectorizer = TfidfVectorizer()
 textual_embeddings = tfidf_vectorizer.fit_transform(df['combined_textual_features'])
 
-# Step 6: Feature Scaling for Numerical Columns
+# Step 2: Feature Scaling for Numerical Columns
 scaler = MinMaxScaler()
 numerical_columns = ['number_of_reviews', 'review_scores_rating', 'review_scores_accuracy', 'review_scores_cleanliness', 'review_scores_checkin', 'review_scores_communication', 'review_scores_location', 'review_scores_value', 'beds']  # Add your numerical columns here
 scaled_numerical_features = scaler.fit_transform(df[numerical_columns])
@@ -69,7 +32,7 @@ scaled_numerical_features = scaler.fit_transform(df[numerical_columns])
 # Combine the scaled numerical features with textual embeddings
 combined_features = np.hstack((textual_embeddings.toarray(), scaled_numerical_features))
 
-# Step 7: Cosine Similarity
+# Step 3: Cosine Similarity
 cosine_sim = cosine_similarity(combined_features)
 
 # Recommendation function without Sentence Transformers
