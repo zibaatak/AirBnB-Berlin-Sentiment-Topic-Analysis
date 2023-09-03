@@ -3,8 +3,3 @@ scikit-learn
 IPython
 pandas
 numpy
-nltk
-
-
-
-
