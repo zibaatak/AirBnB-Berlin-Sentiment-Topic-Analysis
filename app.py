@@ -7,6 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from IPython.display import Image, display, HTML
 
 # Download NLTK data (if not already downloaded)
 nltk.download('punkt')
