@@ -58,7 +58,7 @@ def display_recommendations(recommended_listings):
     for index, row in recommended_listings.iterrows():
         html_output += "<tr>"
         # Display the image as a clickable link to the listing
-        html_output += f"<td><a href='{row['listing_url']}' target='_blank'><img src='{row['image_url']}' style='width:150px;height:150px;'></a></td>"
+        html_output += f"<td><a href='{row['listing_url']}' target='_blank'><img src='{row['picture_url']}' style='width:150px;height:150px;'></a></td>"
         html_output += "<td>"
         html_output += f"<b>Name:</b> {row['name']}<br>"
         html_output += f"<b>Property Type:</b> {row['property_type']}<br>"
